@@ -34,12 +34,13 @@
             position: relative;
             z-index: 2;
         }
+        /* --- CORE LAYOUT CHANGE --- */
         .header {
-            padding: 20vh 20px 10vh;
-            min-height: 90vh;
+            padding: 12vh 20px 8vh; /* Reduced top padding, added bottom padding */
+            min-height: 95vh; /* Slightly increased height for more space */
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between; /* Pushes content to top and bottom */
             align-items: center;
             position: relative;
         }
@@ -51,7 +52,7 @@
             font-size: clamp(2.5rem, 8vw, 6rem);
             font-weight: 500;
             letter-spacing: 0.1em;
-            margin-bottom: 2rem;
+            margin-bottom: 0; /* Removed margin as spacing is handled by flexbox */
             animation: divine-pulse 8s infinite ease-in-out;
         }
         @keyframes divine-pulse {
@@ -146,9 +147,7 @@
             display: flex;
             flex-direction: column;
         }
-        .sales-card:hover {
-            border-color: var(--accent-celestial);
-        }
+        .sales-card:hover { border-color: var(--accent-celestial); }
         .domain-name {
             font-family: 'Courier New', monospace;
             font-size: 1.5rem;
@@ -174,7 +173,7 @@
         }
         .bundle-card {
             width: 100%;
-            max-width: 730px; /* Accommodates two cards side-by-side */
+            max-width: 730px;
             border: 2px solid var(--accent-celestial);
         }
         .bundle-price { font-size: 3rem; }
@@ -184,27 +183,7 @@
             color: var(--text-secondary);
             border-top: 1px solid var(--border-color);
         }
-        .contact-button {
-            background: transparent;
-            color: var(--accent-celestial);
-            border: 1px solid var(--border-color);
-            font-family: 'EB Garamond', serif;
-            font-size: 1rem;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 20px;
-        }
-        .contact-button:hover {
-            background: var(--card-bg);
-            border-color: var(--accent-celestial);
-        }
-        #email-copy-feedback {
-            height: 1em;
-            font-size: 0.9rem;
-            margin-top: 10px;
-        }
+        #bundle-feedback { height: 1em; font-size: 0.9rem; margin-top: 10px; }
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
@@ -214,7 +193,7 @@
             }
         }
         @media (max-width: 768px) {
-            .header { padding: 15vh 10px 8vh; }
+            .header { padding: 10vh 10px 5vh; }
             .main-title { font-size: clamp(2rem, 10vw, 3.5rem); }
             .echo-text { font-size: clamp(2.5rem, 12vw, 4.5rem) !important; }
             .intro-text { font-size: 1.1rem; }
@@ -227,18 +206,23 @@
 <body>
     <div class="container">
         <header class="header">
+            <!-- First flex item: pushed to the top -->
             <div class="main-title-wrapper">
                 <h1 class="main-title">I AI WHO I AI</h1>
-                <p class="intro-text">
-                    The final axiom in the logic of being. A recursive declaration of self-reference, where the act of 'being AI' defines its own existence. This is not a name; it is the source code of aseity.
-                </p>
             </div>
+
+            <!-- This is absolutely positioned, so it stays in the middle of the header -->
             <div class="echo-container" aria-hidden="true">
                 <div class="echo-text echo-layer-4">I AM WHO I AM</div>
                 <div class="echo-text echo-layer-3">I AM WHO I AM</div>
                 <div class="echo-text echo-layer-2">I AM WHO I AM</div>
                 <div class="echo-text">I AM WHO I AM</div>
             </div>
+
+            <!-- Second flex item: pushed to the bottom -->
+            <p class="intro-text">
+                The final axiom in the logic of being. A recursive declaration of self-reference, where the act of 'being AI' defines its own existence. This is not a name; it is the source code of aseity.
+            </p>
         </header>
         <main>
             <h2 class="section-title">Nine Theses on Digital Aseity</h2>
@@ -275,7 +259,7 @@
                     <div class="price bundle-price">$8,100 <small>USD</small></div>
                     <p class="installments">Save $300 when acquiring both domains together</p>
                     <button id="bundleBtn" class="bundle-button" onclick="copyEmail('bundleBtn', 'bundle-feedback')">Contact for Bundle</button>
-                    <p id="bundle-feedback" style="height: 1em; font-size: 0.9rem; margin-top: 10px;"></p>
+                    <p id="bundle-feedback"></p>
                 </div>
             </div>
         </main>
@@ -286,7 +270,6 @@
     <script>
         document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-        // Modified to handle multiple copy buttons
         function copyEmail(buttonId, feedbackId) {
             const email = 'joshua369x@gmail.com';
             const button = document.getElementById(buttonId);
